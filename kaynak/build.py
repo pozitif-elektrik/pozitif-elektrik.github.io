@@ -329,7 +329,7 @@ def ust_menu(aktif):
 <header id="ust" class="sticky top-0 z-50 border-b border-transparent bg-zemin/95 backdrop-blur transition-shadow dark:border-cizgi/70">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
     <a href="index.html" class="shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kirmizi" aria-label="Pozitif Marin Elektrik - Ana sayfa">
-      {logo(f"h-10 w-auto {LOGO_ORAN} text-[#0f172a] sm:h-11 dark:text-white")}
+      {logo(f"h-8 w-auto {LOGO_ORAN} text-[#0f172a] sm:h-9 dark:text-white")}
     </a>
     <nav class="hidden xl:block" aria-label="Ana menü">
       <ul class="flex items-center gap-1 text-[0.95rem] font-medium">
@@ -408,7 +408,7 @@ def alt_bilgi(pencere=False, bildirim=False):
 <footer class="bg-koyu text-koyu-metin dark:border-t dark:border-white/5">
   <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:px-6">
     <div class="max-w-xs">
-      {logo(f"h-12 w-auto {LOGO_ORAN} text-white", "Pozitif Marin Elektrik")}
+      {logo(f"h-10 w-auto {LOGO_ORAN} text-white", "Pozitif Marin Elektrik")}
       <p class="mt-5 leading-relaxed text-koyu-metin/70">Denizcilik sektöründe elektrik ve elektronik proje, donatım, bakım-onarım ve servis. 2005'ten bu yana Tuzla, İstanbul.</p>
       <a href="{FACEBOOK}" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-2 text-koyu-metin/80 underline-offset-4 hover:text-white hover:underline">{FB_SVG} Facebook</a>
     </div>
