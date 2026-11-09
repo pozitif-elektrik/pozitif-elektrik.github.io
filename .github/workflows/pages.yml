@@ -1,0 +1,43 @@
+# yeni-site/ klasörünü GitHub Pages'e test yayını olarak gönderir.
+# Test yayını arama motorlarına kapalıdır: noindex etiketi ve robots.txt
+# yalnızca burada eklenir, yeni-site/ içindeki dosyalar değişmez.
+name: Test yayını (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+    paths: ["yeni-site/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  yayinla:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Yayın klasörünü hazırla
+        run: |
+          cp -r yeni-site _site
+          rm -f _site/README.md _site/_headers
+          sed -i 's#<head>#<head>\n  <meta name="robots" content="noindex, nofollow">#' _site/*.html
+          printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

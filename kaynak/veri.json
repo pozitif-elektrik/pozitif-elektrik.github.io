@@ -1,0 +1,479 @@
+{
+ "urunler": [
+  {
+   "ad": "Switch'ler",
+   "img": "assets/img/urunler/switch-ler.jpg"
+  },
+  {
+   "ad": "Su Yapıcılar",
+   "img": "assets/img/urunler/su-yapicilar.jpg"
+  },
+  {
+   "ad": "Marin Uydu Sistemleri",
+   "img": "assets/img/urunler/marin-uydu-sistemleri.jpg"
+  },
+  {
+   "ad": "Jel, AGM ve Stasyoner Aküler",
+   "img": "assets/img/urunler/jel-agm-ve-stasyoner-akuler.jpg"
+  },
+  {
+   "ad": "Dümen Açı Göstergeleri ve Müşürleri",
+   "img": "assets/img/urunler/dumen-aci-gostergeleri-ve-musurleri.jpg"
+  },
+  {
+   "ad": "DC Otomatik Sigortalar",
+   "img": "assets/img/urunler/dc-otomatik-sigortalar.jpg"
+  },
+  {
+   "ad": "Compact Retract Baş Pervaneler",
+   "img": "assets/img/urunler/compact-retract-bas-pervaneler.jpg"
+  },
+  {
+   "ad": "Akü Şalterleri",
+   "img": "assets/img/urunler/aku-salterleri.jpg"
+  },
+  {
+   "ad": "AC Otomatik Sigortalar",
+   "img": "assets/img/urunler/ac-otomatik-sigortalar.jpg"
+  },
+  {
+   "ad": "Seyir Fenerleri",
+   "img": "assets/img/urunler/seyir-fenerleri.jpg"
+  },
+  {
+   "ad": "Uzaktan Kumandalı Projektörler",
+   "img": "assets/img/urunler/uzaktan-kumandali-projektorler.jpg"
+  },
+  {
+   "ad": "İnvertörler",
+   "img": "assets/img/urunler/i-nvertorler.jpg"
+  },
+  {
+   "ad": "Gazlı Sistem Klimalar",
+   "img": "assets/img/urunler/gazli-sistem-klimalar.jpg"
+  },
+  {
+   "ad": "Acil Stop (Emergency Stop) Butonları",
+   "img": "assets/img/urunler/acil-stop-emergency-stop-butonlari.jpg"
+  },
+  {
+   "ad": "Kompakt Şalterler",
+   "img": "assets/img/urunler/kompakt-salterler.jpg"
+  },
+  {
+   "ad": "Combi (Akü Şarj & İnvertör)",
+   "img": "assets/img/urunler/combi-aku-sarj-i-nvertor.jpg"
+  },
+  {
+   "ad": "Akü Şarj Üniteleri",
+   "img": "assets/img/urunler/aku-sarj-uniteleri.jpg"
+  }
+ ],
+ "galeri": [
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0161.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0161.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk015.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk015.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk013.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk013.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk011.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk011.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk001.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk001.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0031.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0031.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0041.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0041.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0061.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0061.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0091.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0091.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk009.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk009.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk007.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk007.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk005.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk005.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk003.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk003.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap020.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap020.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap018.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap018.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap016.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap016.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap014.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap014.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap012.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap012.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap010.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap010.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap007.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap007.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap005.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap005.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap003.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap003.jpg"
+  },
+  {
+   "kategori": "Projeler",
+   "img": "assets/img/galeri/pj006.jpg",
+   "kucuk": "assets/img/galeri/kucuk/pj006.jpg"
+  },
+  {
+   "kategori": "Projeler",
+   "img": "assets/img/galeri/pj004.jpg",
+   "kucuk": "assets/img/galeri/kucuk/pj004.jpg"
+  },
+  {
+   "kategori": "Projeler",
+   "img": "assets/img/galeri/pj002.jpg",
+   "kucuk": "assets/img/galeri/kucuk/pj002.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp023.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp023.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp001.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp001.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp020.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp020.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp018.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp018.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp016.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp016.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp014.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp014.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp012.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp012.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp010.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp010.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp008.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp008.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp006.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp006.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp004.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp004.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp002.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp002.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp006.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp006.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp004.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp004.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp002.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp002.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk018.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk018.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk016.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk016.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk014.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk014.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk012.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk012.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0021.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0021.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0051.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0051.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0071.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0071.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk0081.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0081.jpg"
+  },
+  {
+   "kategori": "Teslim Edilen Projeler",
+   "img": "assets/img/galeri/tk010.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk010.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk0017.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk0017.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk008.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk008.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk006.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk006.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk004.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk004.jpg"
+  },
+  {
+   "kategori": "Tekne Yazıları",
+   "img": "assets/img/galeri/tk002.jpg",
+   "kucuk": "assets/img/galeri/kucuk/tk002.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap019.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap019.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap017.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap017.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap015.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap015.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap013.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap013.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap011.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap011.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap008.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap008.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap006.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap006.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap004.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap004.jpg"
+  },
+  {
+   "kategori": "Sigorta Ve Alarm Panelleri",
+   "img": "assets/img/galeri/kksap002.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kksap002.jpg"
+  },
+  {
+   "kategori": "Projeler",
+   "img": "assets/img/galeri/pj005.jpg",
+   "kucuk": "assets/img/galeri/kucuk/pj005.jpg"
+  },
+  {
+   "kategori": "Projeler",
+   "img": "assets/img/galeri/pj003.jpg",
+   "kucuk": "assets/img/galeri/kucuk/pj003.jpg"
+  },
+  {
+   "kategori": "Projeler",
+   "img": "assets/img/galeri/pj001.jpg",
+   "kucuk": "assets/img/galeri/kucuk/pj001.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp022.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp022.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp021.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp021.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp019.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp019.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp017.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp017.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp015.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp015.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp013.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp013.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp011.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp011.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp009.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp009.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp007.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp007.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp005.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp005.jpg"
+  },
+  {
+   "kategori": "Kumanda Panelleri",
+   "img": "assets/img/galeri/kp003.jpg",
+   "kucuk": "assets/img/galeri/kucuk/kp003.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp007.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp007.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp005.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp005.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp003.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp003.jpg"
+  },
+  {
+   "kategori": "Alt Yapı Hizmetleri",
+   "img": "assets/img/galeri/aykmdp001.jpg",
+   "kucuk": "assets/img/galeri/kucuk/aykmdp001.jpg"
+  }
+ ]
+}
