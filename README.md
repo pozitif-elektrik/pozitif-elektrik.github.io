@@ -18,5 +18,7 @@ python3 kaynak/build.py
 
 ## Test yayını
 
+https://pozitif-elektrik.github.io/
+
 `main` dalına gönderilen her `yeni-site/` değişikliği GitHub Actions ile GitHub Pages'e yayınlanır
 (`.github/workflows/pages.yml`). Test yayını arama motorlarına kapalıdır (noindex).

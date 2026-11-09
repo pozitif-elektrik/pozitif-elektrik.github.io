@@ -46,9 +46,9 @@ Her görsel, kullanıldığı kutunun oranında kırpıldı.
 
 ## Yayın
 
-`_headers` dosyası önizleme adresinde `noindex` gönderiyor. **Gerçek alan adına geçerken bu dosyayı silin.**
+Test yayını: https://pozitif-elektrik.github.io/ — `main` dalına gönderilen her değişiklik `.github/workflows/pages.yml` ile otomatik yayınlanır. İş akışı yalnızca yayınlanan kopyaya `noindex` etiketi ve kapalı `robots.txt` ekler; bu klasördeki dosyalar gerçek alan adına olduğu gibi taşınabilir.
 
-Cloudflare Pages'e yüklemek için bu klasörü zipleyin (README hariç) ve Pages projesinde "Create deployment" ile yükleyin.
+`_headers` dosyası Cloudflare Pages/Netlify gibi barındırmalarda `noindex` başlığı içindir; gerçek alan adına geçerken silin.
 
 ## Bilinen eksikler
 
