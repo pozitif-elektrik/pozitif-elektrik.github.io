@@ -1,13 +1,44 @@
 <!doctype html>
-<html lang="tr" data-theme="pozitif" class="scroll-smooth">
+<html lang="tr" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>İş Ortaklarımız | Pozitif Marin Elektrik</title>
   <meta name="description" content="Mastervolt, Intellian, Tecma, Atlas Marine Systems, Marine Air Systems, Cruisair, Horizon Reverse Osmosis ve birlikte çalıştığımız tersaneler.">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#ffffff">
+  <script>
+    // Tema, sayfa çizilmeden önce seçilir (beyaz/koyu yanıp sönme olmasın).
+    // Ziyaretçinin seçimi yoksa cihazın ayarı geçerlidir. Düğme: assets/js/main.js
+    (function () {
+      var t;
+      try { t = localStorage.getItem('tema'); } catch (e) {}
+      if (t !== 'koyu' && t !== 'acik') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'koyu' : 'acik';
+      document.documentElement.setAttribute('data-tema', t);
+    })();
+  </script>
+  <style>
+    :root { color-scheme: light; background: #ffffff; }
+    :root[data-tema="koyu"] {
+      color-scheme: dark;
+      background: #0b1220;
+      --color-zemin: #0b1220;
+      --color-zemin-2: #101a2e;
+      --color-yuzey: #141f35;
+      --color-cizgi: #253149;
+      --color-metin: #e5e9f0;
+      --color-koyu: #060b16;
+      --color-ters: #f1f5f9;
+      --color-ters-metin: #0f172a;
+      --color-kirmizi-metin: #ff6b70;
+      --color-mavi-metin: #7cb4f5;
+    }
+    html:has(dialog[open]) { overflow: hidden; }
+    section[id] { scroll-margin-top: 8rem; }
+  </style>
   <link rel="canonical" href="https://pozitifelektrik.org/is-ortaklarimiz">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="tr_TR">
   <meta property="og:site_name" content="Pozitif Marin Elektrik">
@@ -21,240 +52,202 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@5.7.50/daisyui.css" rel="stylesheet" type="text/css">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.5"></script>
-  <style>
-    [data-theme="pozitif"] {
-      color-scheme: light;
-      --color-base-100: #ffffff;
-      --color-base-200: #f4f6f9;
-      --color-base-300: #e3e8ef;
-      --color-base-content: #111827;
-      --color-primary: #d7080b;
-      --color-primary-content: #ffffff;
-      --color-secondary: #1d6fb8;
-      --color-secondary-content: #ffffff;
-      --color-accent: #0e7490;
-      --color-accent-content: #ffffff;
-      --color-neutral: #0f172a;
-      --color-neutral-content: #f1f5f9;
-      --color-info: #0284c7;
-      --color-info-content: #ffffff;
-      --color-success: #15803d;
-      --color-success-content: #ffffff;
-      --color-warning: #d97706;
-      --color-warning-content: #111827;
-      --color-error: #b91c1c;
-      --color-error-content: #ffffff;
-      --radius-selector: 1rem;
-      --radius-field: 0.25rem;
-      --radius-box: 0.5rem;
-      --size-selector: 0.25rem;
-      --size-field: 0.25rem;
-      --border: 1px;
-      --depth: 1;
-      --noise: 0;
-    }
-  </style>
   <style type="text/tailwindcss">
+    /* dark: sınıfları ziyaretçinin seçtiği temaya bağlı (cihaz ayarına değil) */
+    @custom-variant dark (&:where([data-tema=koyu], [data-tema=koyu] *));
+    /* Açık tema renkleri. Koyu tema karşılıkları yukarıdaki <style> içinde aynı
+       değişkenleri ezer; bg-zemin, text-metin/70 gibi sınıflar iki temada da çalışır. */
     @theme {
       --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+      --color-zemin: #ffffff;
+      --color-zemin-2: #f4f6f9;
+      --color-yuzey: #ffffff;
+      --color-cizgi: #e3e8ef;
+      --color-metin: #111827;
+      --color-koyu: #0f172a;
+      --color-koyu-metin: #f1f5f9;
+      --color-ters: #0f172a;
+      --color-ters-metin: #ffffff;
+      --color-kirmizi: #e30613;
+      --color-kirmizi-koyu: #c8050f;
+      --color-kirmizi-metin: #c8050f;
+      --color-kirmizi-acik: #ff6b70;
+      --color-mavi-metin: #1d6fb8;
     }
-    /* daisyUI renklerini Tailwind'e tanıt: bg-base-100/95, text-base-content/60 gibi saydamlık sınıfları çalışsın */
-    @theme inline {
-      --color-base-100: var(--color-base-100, #ffffff);
-      --color-base-200: var(--color-base-200, #f4f6f9);
-      --color-base-300: var(--color-base-300, #e3e8ef);
-      --color-base-content: var(--color-base-content, #111827);
-      --color-primary: var(--color-primary, #d7080b);
-      --color-primary-content: var(--color-primary-content, #ffffff);
-      --color-secondary: var(--color-secondary, #1d6fb8);
-      --color-secondary-content: var(--color-secondary-content, #ffffff);
-      --color-accent: var(--color-accent, #0e7490);
-      --color-accent-content: var(--color-accent-content, #ffffff);
-      --color-neutral: var(--color-neutral, #0f172a);
-      --color-neutral-content: var(--color-neutral-content, #f1f5f9);
-      --color-info: var(--color-info, #0284c7);
-      --color-info-content: var(--color-info-content, #ffffff);
-      --color-success: var(--color-success, #15803d);
-      --color-success-content: var(--color-success-content, #ffffff);
-      --color-warning: var(--color-warning, #d97706);
-      --color-warning-content: var(--color-warning-content, #111827);
-      --color-error: var(--color-error, #b91c1c);
-      --color-error-content: var(--color-error-content, #ffffff);
-    }
-    section[id] { scroll-margin-top: 8rem; }
   </style>
-</head><body class="font-sans antialiased">
-<a href="#icerik" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] btn btn-sm">İçeriğe geç</a>
+</head><body class="bg-zemin font-sans text-metin antialiased">
+<a href="#icerik" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi h-9 px-3.5 text-sm bg-ters text-ters-metin hover:bg-ters/85">İçeriğe geç</a>
 
-<header id="ust" class="sticky top-0 z-50 bg-base-100/95 backdrop-blur transition-shadow">
-  <div class="navbar mx-auto max-w-7xl px-4 lg:px-6">
-    <div class="navbar-start">
-      <a href="index.html" class="flex items-center gap-3" aria-label="Pozitif Marin Elektrik - Ana sayfa">
-        <img src="assets/img/logo.jpg" alt="Pozitif Elektrik logosu" width="150" height="70" class="h-11 w-auto lg:h-12">
-        <span class="hidden leading-tight sm:block">
-          <span class="block text-base font-bold tracking-tight">Pozitif Marin Elektrik</span>
-          <span class="block text-xs text-base-content/60">Yat elektrik &amp; elektronik</span>
-        </span>
-      </a>
-    </div>
-    <nav class="navbar-center hidden xl:flex" aria-label="Ana menü">
-      <ul class="menu menu-horizontal gap-1 text-[0.95rem] font-medium">
-          <li><a href="hakkimizda.html">Hakkımızda</a></li>
-          <li><a href="hizmetler.html">Hizmetler</a></li>
-          <li><a href="projeler.html">Projeler</a></li>
-          <li><a href="urunler.html">Ürünler</a></li>
-          <li><a href="is-ortaklarimiz.html" class="menu-active" aria-current="page">İş Ortaklarımız</a></li>
-          <li><a href="referanslar.html">Referanslar</a></li>
-          <li><a href="iletisim.html">İletişim</a></li>
+<header id="ust" class="sticky top-0 z-50 border-b border-transparent bg-zemin/95 backdrop-blur transition-shadow dark:border-cizgi/70">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
+    <a href="index.html" class="shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kirmizi" aria-label="Pozitif Marin Elektrik - Ana sayfa">
+      <svg class="h-10 w-auto aspect-[2288/488] text-[#0f172a] sm:h-11 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2288 488"><rect x="0" y="0" width="170" height="170" rx="30" fill="currentColor"/><rect x="0" y="318" width="170" height="170" rx="30" fill="currentColor"/><rect x="318" y="0" width="170" height="170" rx="30" fill="currentColor"/><rect x="318" y="318" width="170" height="170" rx="30" fill="currentColor"/><rect x="214" y="0" width="60" height="488" rx="30" fill="#E30613"/><rect x="0" y="214" width="488" height="60" rx="30" fill="#E30613"/><g transform="translate(1588 86) scale(2)"><rect x="39.5" y="0" width="21" height="120" rx="10.5" fill="#E30613"/><rect x="4" y="49.5" width="92" height="21" rx="10.5" fill="#E30613"/></g><g fill="none" stroke="currentColor" stroke-width="16.5" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(588.00 86.00) scale(2)"><path d="M22,112 V8 H58 A27,27 0 0 1 58,62 H22"/></g><g transform="translate(838.00 86.00) scale(2)"><path d="M50,8 A42,42 0 0 1 92,50 V70 A42,42 0 0 1 50,112 A42,42 0 0 1 8,70 V50 A42,42 0 0 1 50,8 Z"/></g><g transform="translate(1088.00 86.00) scale(2)"><path d="M14,8 H86 L14,112 H86"/></g><g transform="translate(1338.00 86.00) scale(2)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(1838.00 86.00) scale(2)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(2088.00 86.00) scale(2)"><path d="M86,8 H22 V112 M22,58 H70"/></g><g transform="translate(588.00 380.00) scale(0.7)"><path d="M14,112 V8 L50,78 L86,8 V112"/></g><g transform="translate(713.38 380.00) scale(0.7)"><path d="M10,112 L50,8 L90,112 M24,76 H76"/></g><g transform="translate(838.77 380.00) scale(0.7)"><path d="M22,112 V8 H58 A27,27 0 0 1 58,62 H22 M50,62 L84,112"/></g><g transform="translate(964.15 380.00) scale(0.7)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(1089.54 380.00) scale(0.7)"><path d="M18,112 V8 L82,112 V8"/></g><g transform="translate(1340.31 380.00) scale(0.7)"><path d="M86,8 H22 V112 H86 M22,58 H72"/></g><g transform="translate(1465.69 380.00) scale(0.7)"><path d="M22,8 V112 H86"/></g><g transform="translate(1591.08 380.00) scale(0.7)"><path d="M86,8 H22 V112 H86 M22,58 H72"/></g><g transform="translate(1716.46 380.00) scale(0.7)"><path d="M22,8 V112 M82,8 L22,74 M45,49 L84,112"/></g><g transform="translate(1841.85 380.00) scale(0.7)"><path d="M12,8 H88 M50,8 V112"/></g><g transform="translate(1967.23 380.00) scale(0.7)"><path d="M22,112 V8 H58 A27,27 0 0 1 58,62 H22 M50,62 L84,112"/></g><g transform="translate(2092.62 380.00) scale(0.7)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(2218.00 380.00) scale(0.7)"><path d="M22,8 V112 M82,8 L22,74 M45,49 L84,112"/></g></g></svg>
+    </a>
+    <nav class="hidden xl:block" aria-label="Ana menü">
+      <ul class="flex items-center gap-1 text-[0.95rem] font-medium">
+          <li><a href="hakkimizda.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin">Hakkımızda</a></li>
+          <li><a href="hizmetler.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin">Hizmetler</a></li>
+          <li><a href="projeler.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin">Projeler</a></li>
+          <li><a href="urunler.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin">Ürünler</a></li>
+          <li><a href="is-ortaklarimiz.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin" aria-current="page">İş Ortaklarımız</a></li>
+          <li><a href="referanslar.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin">Referanslar</a></li>
+          <li><a href="iletisim.html" class="block rounded-lg px-3 py-2 text-metin/80 transition-colors hover:bg-metin/5 hover:text-metin aria-[current=page]:bg-metin/8 aria-[current=page]:text-metin">İletişim</a></li>
       </ul>
     </nav>
-    <div class="navbar-end gap-2">
-      <a href="tel:+902163959944" class="btn btn-neutral hidden sm:inline-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 0216 395 99 44</a>
-      <details class="dropdown dropdown-end xl:hidden" data-mobil-menu>
-        <summary class="btn btn-ghost btn-square" aria-label="Menüyü aç">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="size-6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <div class="flex items-center gap-2">
+      <button type="button" class="grid size-10 cursor-pointer place-items-center rounded-lg text-metin/80 transition-colors hover:bg-metin/8 hover:text-metin focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi" data-tema-dugme aria-label="Koyu tema" aria-pressed="false" title="Koyu temaya geç">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-5 dark:hidden" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="hidden size-5 dark:block" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a href="tel:+902163959944" class="cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi h-11 px-5 bg-ters text-ters-metin hover:bg-ters/85 hidden sm:inline-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 0216 395 99 44</a>
+      <details class="group relative xl:hidden" data-mobil-menu>
+        <summary class="grid size-10 cursor-pointer place-items-center rounded-lg text-metin/80 transition-colors hover:bg-metin/8 hover:text-metin focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi list-none [&::-webkit-details-marker]:hidden" aria-label="Menü">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-6 group-open:hidden" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="hidden size-6 group-open:block" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </summary>
-        <ul class="dropdown-content menu menu-lg z-50 mt-3 w-64 rounded-box bg-base-100 p-2 shadow-xl">
-          <li><a href="index.html">Ana Sayfa</a></li>
-          <li><a href="hakkimizda.html">Hakkımızda</a></li>
-          <li><a href="hizmetler.html">Hizmetler</a></li>
-          <li><a href="projeler.html">Projeler</a></li>
-          <li><a href="urunler.html">Ürünler</a></li>
-          <li><a href="is-ortaklarimiz.html" class="menu-active" aria-current="page">İş Ortaklarımız</a></li>
-          <li><a href="referanslar.html">Referanslar</a></li>
-          <li><a href="iletisim.html">İletişim</a></li>
-          <li class="mt-2"><a href="tel:+902163959944" class="btn btn-neutral">0216 395 99 44</a></li>
-        </ul>
+        <nav class="absolute right-0 top-full z-50 mt-3 w-72 rounded-xl border border-cizgi bg-yuzey p-2 shadow-xl" aria-label="Ana menü">
+          <ul>
+          <li><a href="index.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">Ana Sayfa</a></li>
+          <li><a href="hakkimizda.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">Hakkımızda</a></li>
+          <li><a href="hizmetler.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">Hizmetler</a></li>
+          <li><a href="projeler.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">Projeler</a></li>
+          <li><a href="urunler.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">Ürünler</a></li>
+          <li><a href="is-ortaklarimiz.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin" aria-current="page">İş Ortaklarımız</a></li>
+          <li><a href="referanslar.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">Referanslar</a></li>
+          <li><a href="iletisim.html" class="block rounded-lg px-4 py-3 text-lg font-medium hover:bg-metin/5 aria-[current=page]:bg-metin/8 aria-[current=page]:text-kirmizi-metin">İletişim</a></li>
+          </ul>
+          <a href="tel:+902163959944" class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi h-11 px-5 bg-ters text-ters-metin hover:bg-ters/85 mt-2 w-full"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 0216 395 99 44</a>
+        </nav>
       </details>
     </div>
   </div>
 </header>
 
 <main id="icerik">
-<section class="bg-neutral text-neutral-content">
+<section class="bg-koyu text-koyu-metin">
   <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 lg:grid-cols-2 lg:gap-16 lg:px-6 lg:py-16">
     <div>
-      <div class="breadcrumbs text-sm text-neutral-content/60">
-        <ul><li><a href="index.html">Ana Sayfa</a></li><li><span aria-current="page">İş Ortaklarımız</span></li></ul>
-      </div>
-      <p class="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-white/70"><span class="inline-block h-0.5 w-8 bg-primary"></span> İş ortaklarımız</p>
+      <nav aria-label="Konum" class="text-sm text-koyu-metin/60">
+        <ol class="flex flex-wrap items-center gap-1.5">
+          <li><a href="index.html" class="underline-offset-4 hover:text-white hover:underline">Ana Sayfa</a></li>
+          <li class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 opacity-60" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><span aria-current="page" class="text-koyu-metin/85">İş Ortaklarımız</span></li>
+        </ol>
+      </nav>
+      <p class="mt-6 inline-flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.2em] text-white/70"><svg viewBox="0 0 10 10" class="shrink-0 text-kirmizi size-2.5" aria-hidden="true"><path d="M5 1.2v7.6M1.2 5h7.6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg> İş ortaklarımız</p>
       <h1 class="mt-3 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Birlikte çalıştığımız markalar ve tersaneler</h1>
       <p class="mt-5 max-w-xl text-lg text-white/75">Satışını ve servisini yaptığımız dünya markaları ile projelerinde yer aldığımız tekne üreticileri.</p>
     </div>
-    <img src="assets/img/sayfa/is-ortaklarimiz.jpg" alt="Rüzgârla yatan bir yelkenli yat" width="709" height="532" fetchpriority="high" class="aspect-[4/3] w-full rounded-box object-cover shadow-2xl">
+    <img src="assets/img/sayfa/is-ortaklarimiz.jpg" alt="Rüzgârla yatan bir yelkenli yat" width="709" height="532" fetchpriority="high" class="aspect-[4/3] w-full rounded-xl object-cover shadow-2xl">
   </div>
 </section>
 
-<section class="bg-base-100 py-20 lg:py-24">
+<section class="bg-zemin py-20 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 lg:px-6">
-    <figure class="mx-auto max-w-5xl rounded-box border border-base-300 bg-white p-4 sm:p-8">
+    <figure class="mx-auto max-w-5xl rounded-xl border border-cizgi bg-white p-4 sm:p-8">
       <img src="assets/img/is-ortaklari.jpg" alt="İş ortaklarımızın logoları: Mastervolt, Intellian, Tecma by Thetford, Atlas Marine Systems, Mert Yacht, Marine Air Systems, Horizon Reverse Osmosis, Cruisair, Marina Deniz Araçları, Rodriquez, Ses Yachts, Artı Marin ve Max" loading="lazy" width="1158" height="458" class="mx-auto w-full">
     </figure>
     <div class="mt-16 grid gap-14 lg:grid-cols-2 lg:gap-20">
       <div>
         <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Ürün markaları</h2>
-        <p class="mt-3 text-lg text-base-content/70">Satışını, montajını ve servisini yaptığımız markalar.</p>
+        <p class="mt-3 text-lg text-metin/70">Satışını, montajını ve servisini yaptığımız markalar.</p>
         <ul class="mt-6">
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Mastervolt</span><span class="text-base-content/65 sm:text-right">Akü, şarj cihazı, invertör ve güç dağıtım sistemleri</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Mastervolt</span><span class="text-metin/65 sm:text-right">Akü, şarj cihazı, invertör ve güç dağıtım sistemleri</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Intellian</span><span class="text-base-content/65 sm:text-right">Marin uydu TV ve iletişim antenleri</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Intellian</span><span class="text-metin/65 sm:text-right">Marin uydu TV ve iletişim antenleri</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Tecma by Thetford</span><span class="text-base-content/65 sm:text-right">Tekne tuvalet sistemleri</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Tecma by Thetford</span><span class="text-metin/65 sm:text-right">Tekne tuvalet sistemleri</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Atlas Marine Systems</span><span class="text-base-content/65 sm:text-right">Sahil elektriği dönüştürücüleri</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Atlas Marine Systems</span><span class="text-metin/65 sm:text-right">Sahil elektriği dönüştürücüleri</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Marine Air Systems</span><span class="text-base-content/65 sm:text-right">Marin klima sistemleri</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Marine Air Systems</span><span class="text-metin/65 sm:text-right">Marin klima sistemleri</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Cruisair</span><span class="text-base-content/65 sm:text-right">Marin klima sistemleri</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Cruisair</span><span class="text-metin/65 sm:text-right">Marin klima sistemleri</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Horizon Reverse Osmosis</span><span class="text-base-content/65 sm:text-right">Ters ozmoz su yapıcılar</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Horizon Reverse Osmosis</span><span class="text-metin/65 sm:text-right">Ters ozmoz su yapıcılar</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
             <span class="text-lg font-bold">Max</span>
           </li>
         </ul>
       </div>
       <div>
         <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Tersaneler ve üreticiler</h2>
-        <p class="mt-3 text-lg text-base-content/70">Teknelerinin elektrik sistemlerinde birlikte çalıştığımız üreticiler.</p>
+        <p class="mt-3 text-lg text-metin/70">Teknelerinin elektrik sistemlerinde birlikte çalıştığımız üreticiler.</p>
         <ul class="mt-6">
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Rodriquez</span><span class="text-base-content/65 sm:text-right">Yat üreticisi</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Rodriquez</span><span class="text-metin/65 sm:text-right">Yat üreticisi</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Mert Yacht</span><span class="text-base-content/65 sm:text-right">Yat üreticisi</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Mert Yacht</span><span class="text-metin/65 sm:text-right">Yat üreticisi</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Ses Yachts</span><span class="text-base-content/65 sm:text-right">Motor ve yelkenli yat tasarım ve inşa</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Ses Yachts</span><span class="text-metin/65 sm:text-right">Motor ve yelkenli yat tasarım ve inşa</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Marina Deniz Araçları Tic. ve San. A.Ş.</span><span class="text-base-content/65 sm:text-right">Deniz araçları</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Marina Deniz Araçları Tic. ve San. A.Ş.</span><span class="text-metin/65 sm:text-right">Deniz araçları</span>
           </li>
-          <li class="flex flex-col gap-0.5 border-b border-base-300 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-lg font-bold">Artı Marin</span><span class="text-base-content/65 sm:text-right">Denizcilik</span>
+          <li class="flex flex-col gap-0.5 border-b border-cizgi py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+            <span class="text-lg font-bold">Artı Marin</span><span class="text-metin/65 sm:text-right">Denizcilik</span>
           </li>
         </ul>
-        <a href="urunler.html" class="btn mt-10">Ürünlerimiz <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="urunler.html" class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi h-11 px-5 border border-cizgi bg-yuzey text-metin shadow-xs hover:border-metin/30 hover:bg-zemin-2 mt-10">Ürünlerimiz <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
-<section aria-label="İletişime geçin" class="bg-base-200">
+<section aria-label="İletişime geçin" class="bg-zemin-2">
   <div class="mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-14 lg:flex-row lg:items-center lg:justify-between lg:px-6">
     <div class="max-w-2xl">
       <h2 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Teknenizin elektrik sistemi için bize ulaşın</h2>
-      <p class="mt-2 text-lg text-base-content/70">Yeni bir proje, bir yenileme ya da bir arıza: ilk görüşmeyi telefonda yapalım.</p>
+      <p class="mt-2 text-lg text-metin/70">Yeni bir proje, bir yenileme ya da bir arıza: ilk görüşmeyi telefonda yapalım.</p>
     </div>
     <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-      <a href="tel:+902163959944" class="btn btn-neutral btn-lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +90 216 395 99 44</a>
-      <a href="mailto:info@pozitifelektrik.org" class="btn btn-lg btn-outline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> E-posta gönderin</a>
+      <a href="tel:+902163959944" class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi h-13 px-6 text-lg bg-ters text-ters-metin hover:bg-ters/85"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +90 216 395 99 44</a>
+      <a href="mailto:info@pozitifelektrik.org" class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi h-13 px-6 text-lg border border-metin/30 text-metin hover:border-metin hover:bg-metin hover:text-zemin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> E-posta gönderin</a>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="bg-neutral text-neutral-content">
-  <div class="footer mx-auto max-w-7xl gap-10 px-4 py-14 sm:footer-horizontal lg:px-6">
-    <aside class="max-w-xs">
-      <img src="assets/img/logo.jpg" alt="Pozitif Elektrik logosu" width="150" height="70" loading="lazy" class="h-12 w-auto rounded-sm">
-      <p class="mt-3 leading-relaxed text-neutral-content/70">Denizcilik sektöründe elektrik ve elektronik proje, donatım, bakım-onarım ve servis. 2005'ten bu yana Tuzla, İstanbul.</p>
-      <a href="https://www.facebook.com/pozitifmarinelektrik" target="_blank" rel="noopener" class="link link-hover mt-2 inline-flex items-center gap-2 text-neutral-content/80"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg> Facebook</a>
-    </aside>
-    <nav aria-label="Hizmetler ve projeler">
-      <h2 class="footer-title">Neler yapıyoruz</h2>
-      <a class="link link-hover" href="hakkimizda.html">Hakkımızda</a>
-      <a class="link link-hover" href="hizmetler.html">Hizmetler</a>
-      <a class="link link-hover" href="projeler.html">Projeler</a>
-      <a class="link link-hover" href="urunler.html">Ürünler</a>
+<footer class="bg-koyu text-koyu-metin dark:border-t dark:border-white/5">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:px-6">
+    <div class="max-w-xs">
+      <svg class="h-12 w-auto aspect-[2288/488] text-white" role="img" aria-label="Pozitif Marin Elektrik" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2288 488"><rect x="0" y="0" width="170" height="170" rx="30" fill="currentColor"/><rect x="0" y="318" width="170" height="170" rx="30" fill="currentColor"/><rect x="318" y="0" width="170" height="170" rx="30" fill="currentColor"/><rect x="318" y="318" width="170" height="170" rx="30" fill="currentColor"/><rect x="214" y="0" width="60" height="488" rx="30" fill="#E30613"/><rect x="0" y="214" width="488" height="60" rx="30" fill="#E30613"/><g transform="translate(1588 86) scale(2)"><rect x="39.5" y="0" width="21" height="120" rx="10.5" fill="#E30613"/><rect x="4" y="49.5" width="92" height="21" rx="10.5" fill="#E30613"/></g><g fill="none" stroke="currentColor" stroke-width="16.5" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(588.00 86.00) scale(2)"><path d="M22,112 V8 H58 A27,27 0 0 1 58,62 H22"/></g><g transform="translate(838.00 86.00) scale(2)"><path d="M50,8 A42,42 0 0 1 92,50 V70 A42,42 0 0 1 50,112 A42,42 0 0 1 8,70 V50 A42,42 0 0 1 50,8 Z"/></g><g transform="translate(1088.00 86.00) scale(2)"><path d="M14,8 H86 L14,112 H86"/></g><g transform="translate(1338.00 86.00) scale(2)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(1838.00 86.00) scale(2)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(2088.00 86.00) scale(2)"><path d="M86,8 H22 V112 M22,58 H70"/></g><g transform="translate(588.00 380.00) scale(0.7)"><path d="M14,112 V8 L50,78 L86,8 V112"/></g><g transform="translate(713.38 380.00) scale(0.7)"><path d="M10,112 L50,8 L90,112 M24,76 H76"/></g><g transform="translate(838.77 380.00) scale(0.7)"><path d="M22,112 V8 H58 A27,27 0 0 1 58,62 H22 M50,62 L84,112"/></g><g transform="translate(964.15 380.00) scale(0.7)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(1089.54 380.00) scale(0.7)"><path d="M18,112 V8 L82,112 V8"/></g><g transform="translate(1340.31 380.00) scale(0.7)"><path d="M86,8 H22 V112 H86 M22,58 H72"/></g><g transform="translate(1465.69 380.00) scale(0.7)"><path d="M22,8 V112 H86"/></g><g transform="translate(1591.08 380.00) scale(0.7)"><path d="M86,8 H22 V112 H86 M22,58 H72"/></g><g transform="translate(1716.46 380.00) scale(0.7)"><path d="M22,8 V112 M82,8 L22,74 M45,49 L84,112"/></g><g transform="translate(1841.85 380.00) scale(0.7)"><path d="M12,8 H88 M50,8 V112"/></g><g transform="translate(1967.23 380.00) scale(0.7)"><path d="M22,112 V8 H58 A27,27 0 0 1 58,62 H22 M50,62 L84,112"/></g><g transform="translate(2092.62 380.00) scale(0.7)"><path d="M30,8 H70 M50,8 V112 M30,112 H70"/><circle cx="50" cy="-21" r="10.5" fill="currentColor" stroke="none"/></g><g transform="translate(2218.00 380.00) scale(0.7)"><path d="M22,8 V112 M82,8 L22,74 M45,49 L84,112"/></g></g></svg>
+      <p class="mt-5 leading-relaxed text-koyu-metin/70">Denizcilik sektöründe elektrik ve elektronik proje, donatım, bakım-onarım ve servis. 2005'ten bu yana Tuzla, İstanbul.</p>
+      <a href="https://www.facebook.com/pozitifmarinelektrik" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-2 text-koyu-metin/80 underline-offset-4 hover:text-white hover:underline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg> Facebook</a>
+    </div>
+    <nav aria-label="Hizmetler ve projeler" class="flex flex-col gap-2">
+      <h2 class="mb-1 text-sm font-semibold uppercase tracking-[0.15em] text-koyu-metin/50">Neler yapıyoruz</h2>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="hakkimizda.html">Hakkımızda</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="hizmetler.html">Hizmetler</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="projeler.html">Projeler</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="urunler.html">Ürünler</a>
     </nav>
-    <nav aria-label="Kurumsal">
-      <h2 class="footer-title">Kurumsal</h2>
-      <a class="link link-hover" href="is-ortaklarimiz.html">İş Ortaklarımız</a>
-      <a class="link link-hover" href="referanslar.html">Referanslar</a>
-      <a class="link link-hover" href="iletisim.html">İletişim</a>
+    <nav aria-label="Kurumsal" class="flex flex-col gap-2">
+      <h2 class="mb-1 text-sm font-semibold uppercase tracking-[0.15em] text-koyu-metin/50">Kurumsal</h2>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="is-ortaklarimiz.html">İş Ortaklarımız</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="referanslar.html">Referanslar</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="iletisim.html">İletişim</a>
     </nav>
-    <nav aria-label="İletişim bilgileri">
-      <h2 class="footer-title">İletişim</h2>
-      <a class="link link-hover" href="tel:+902163959944">+90 216 395 99 44</a>
-      <a class="link link-hover" href="tel:+905327064406">+90 532 706 44 06</a>
-      <a class="link link-hover" href="mailto:info@pozitifelektrik.org">info@pozitifelektrik.org</a>
-      <span class="text-neutral-content/70">Aydıntepe Mah. Emek Sok. No: 13/A D.1<br>Tuzla / İstanbul</span>
+    <nav aria-label="İletişim bilgileri" class="flex flex-col gap-2">
+      <h2 class="mb-1 text-sm font-semibold uppercase tracking-[0.15em] text-koyu-metin/50">İletişim</h2>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="tel:+902163959944">+90 216 395 99 44</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="tel:+905327064406">+90 532 706 44 06</a>
+      <a class="w-fit text-koyu-metin/85 hover:text-white hover:underline underline-offset-4" href="mailto:info@pozitifelektrik.org">info@pozitifelektrik.org</a>
+      <span class="text-koyu-metin/70">Aydıntepe Mah. Emek Sok. No: 13/A D.1<br>Tuzla / İstanbul</span>
     </nav>
   </div>
   <div class="border-t border-white/10">
-    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-neutral-content/60 sm:flex-row sm:justify-between lg:px-6">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-koyu-metin/60 sm:flex-row sm:justify-between lg:px-6">
       <p>© <span data-yil>2026</span> Pozitif Marin Elektrik Turz. Ltd. Şti. Tüm hakları saklıdır.</p>
-      <a href="#icerik" class="link link-hover">Başa dön ↑</a>
+      <a href="#icerik" class="hover:underline underline-offset-4">Başa dön ↑</a>
     </div>
   </div>
 </footer>

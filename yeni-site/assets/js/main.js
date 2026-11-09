@@ -7,6 +7,33 @@
   // Yıl
   $$('[data-yil]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
+  // ---------------- Tema (açık / koyu) ----------------
+  // İlk seçim <head> içindeki kısa betikte yapılır (sayfa çizilmeden önce).
+  // Ziyaretçi düğmeye basana kadar cihazın ayarı izlenir; basınca seçim saklanır.
+  const kok = document.documentElement;
+  const kayitliTema = () => { try { return localStorage.getItem('tema'); } catch { return null; } };
+  const temaUygula = (tema) => {
+    kok.dataset.tema = tema;
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.content = getComputedStyle(kok).backgroundColor;  // telefonda tarayıcı çubuğu = sayfa zemini
+    $$('[data-tema-dugme]').forEach((d) => {
+      d.setAttribute('aria-pressed', String(tema === 'koyu'));
+      d.title = tema === 'koyu' ? 'Açık temaya geç' : 'Koyu temaya geç';
+    });
+  };
+  temaUygula(kok.dataset.tema === 'koyu' ? 'koyu' : 'acik');
+  $$('[data-tema-dugme]').forEach((d) => d.addEventListener('click', () => {
+    const yeni = kok.dataset.tema === 'koyu' ? 'acik' : 'koyu';
+    try { localStorage.setItem('tema', yeni); } catch { /* gizli pencere: yalnızca bu sayfada geçerli */ }
+    temaUygula(yeni);
+  }));
+  const sistemKoyu = matchMedia('(prefers-color-scheme: dark)');
+  sistemKoyu.addEventListener('change', (e) => { if (!kayitliTema()) temaUygula(e.matches ? 'koyu' : 'acik'); });
+  // Başka bir sekmede değiştirilirse bu sekme de uysun
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'tema') temaUygula(e.newValue === 'koyu' || (!e.newValue && sistemKoyu.matches) ? 'koyu' : 'acik');
+  });
+
   // Kaydırınca üst menüye gölge
   const ust = $('#ust');
   if (ust) {
@@ -15,11 +42,14 @@
     window.addEventListener('scroll', golge, { passive: true });
   }
 
-  // Mobil menü: bağlantıya ya da dışarı tıklayınca kapat
+  // Mobil menü: bağlantıya ya da dışarı tıklayınca, Esc'e basınca kapat
   const mobil = $('[data-mobil-menu]');
   if (mobil) {
     mobil.addEventListener('click', (e) => { if (e.target.closest('a')) mobil.removeAttribute('open'); });
     document.addEventListener('click', (e) => { if (!mobil.contains(e.target)) mobil.removeAttribute('open'); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobil.open) { mobil.removeAttribute('open'); $('summary', mobil).focus(); }
+    });
   }
 
   // ---------------- Projeler galerisi: filtre + daha fazla göster ----------------
@@ -37,11 +67,8 @@
       ogeler.forEach((o) => { o.hidden = true; o.dataset.disari = 'evet'; });
       eslesen.forEach((o, i) => { o.hidden = i >= limit; delete o.dataset.disari; });
       if (dahaBtn) dahaBtn.hidden = eslesen.length <= limit;
-      sekmeler.forEach((s) => {
-        const aktif = s.dataset.filtre === filtre;
-        s.classList.toggle('tab-active', aktif);
-        s.setAttribute('aria-selected', String(aktif));
-      });
+      // Seçili filtrenin görünümü aria-pressed'den gelir (aria-pressed:... sınıfları)
+      sekmeler.forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.filtre === filtre)));
     };
     const sec = (yeni, adresiGuncelle = true) => {
       filtre = sekmeler.some((s) => s.dataset.filtre === yeni) ? yeni : 'hepsi';
@@ -90,6 +117,8 @@
     $('[data-pencere-onceki]', pencere).addEventListener('click', () => goster(sira - 1));
     $('[data-pencere-sonraki]', pencere).addEventListener('click', () => goster(sira + 1));
     $('[data-pencere-kapat]', pencere).addEventListener('click', () => pencere.close());
+    // Pencerenin dışına (karartılmış arka plana) tıklayınca kapat
+    pencere.addEventListener('click', (e) => { if (e.target === pencere) pencere.close(); });
     pencere.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') goster(sira - 1);
       if (e.key === 'ArrowRight') goster(sira + 1);

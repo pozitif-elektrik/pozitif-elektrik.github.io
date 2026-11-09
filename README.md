@@ -4,8 +4,9 @@ Pozitif Marin Elektrik (Tuzla/İstanbul, yat ve tekne elektrik-elektronik sistem
 
 | Klasör | İçerik |
 |---|---|
-| `yeni-site/` | Yayına giden statik site (Tailwind CSS 4 + daisyUI 5 CDN, vanilla JS). Ayrıntılar: `yeni-site/README.md` |
-| `kaynak/` | Sayfaları üreten `build.py` ve galeri/ürün verisi `veri.json` |
+| `yeni-site/` | Yayına giden statik site (Tailwind CSS 4 CDN + vanilla JS, açık/koyu tema). Ayrıntılar: `yeni-site/README.md` |
+| `kaynak/` | Sayfaları üreten `build.py`, galeri/ürün verisi `veri.json`, logoları üreten `logo.py` |
+| `logo/` | Vektörel logo çalışması (3 öneri; sitede C kullanılıyor): SVG, PDF, PNG ve `sunum.html` |
 | `eski-site/` | Eski sitenin (pozitifelektrik.org) arşivi: ayna kopya, orijinal görseller, metinler, ekran görüntüleri |
 
 ## Düzenleme

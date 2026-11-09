@@ -1,6 +1,13 @@
 # Pozitif Marin Elektrik: yeni site
 
-Çok sayfalı statik site. Tailwind CSS 4 (`@tailwindcss/browser@4.3.5`) ve daisyUI 5 (`daisyui@5.7.50`) CDN'den yükleniyor, davranışlar vanilla JS ile yazıldı. Sitede form yok.
+Çok sayfalı statik site. Yalnızca Tailwind CSS 4 (`@tailwindcss/browser@4.3.5`, CDN) ve vanilla JS; bileşen kütüphanesi yok. Sitede form yok.
+
+## Logo ve tema
+
+- **Logo:** Öneri C (amblem + "POZİ✚İF / MARİN ELEKTRİK"). Üst menüde ve alt bilgide satır içi SVG olarak; kutucuk ve yazı rengi `currentColor` (açık temada lacivert, koyu temada beyaz), artı her iki temada kırmızı. Kaynağı `../kaynak/logo.py`, ayrıntılar `../logo/README.md`.
+- **Favicon:** `favicon.ico` (16/32/48), `assets/img/favicon.svg`, `assets/img/apple-touch-icon.png` (180). Yapısal verideki logo: `assets/img/logo.png`.
+- **Açık / koyu tema:** Üst menüdeki ay/güneş düğmesi. Ziyaretçi seçim yapana kadar cihazın ayarı izlenir; seçim `localStorage`'da (`tema`) saklanır ve açık sekmeler arasında eşitlenir. Tema `<html data-tema="acik|koyu">` ile belirlenir; `<head>` içindeki kısa betik bunu sayfa çizilmeden önce yapar (yanıp sönme olmaz).
+- **Renkler:** `kaynak/build.py` içindeki `RENKLER` tablosu (açık, koyu). Tailwind'de `bg-zemin`, `bg-zemin-2`, `bg-yuzey`, `border-cizgi`, `text-metin`, `bg-koyu`, `bg-ters`, `bg-kirmizi`, `text-kirmizi-metin` gibi sınıflar olarak kullanılır; koyu temada değerleri kendiliğinden değişir, bu yüzden çoğu yerde `dark:` gerekmez. Düğmeler `dugme()` yardımcısıyla üretilir.
 
 ## Sayfalar
 
@@ -29,6 +36,8 @@ Metin değiştirmek için `build.py` dosyasını düzenleyip şunu çalıştır�
 python3 kaynak/build.py      # proje kökünden
 ```
 
+Logo değişirse önce `python3 kaynak/logo.py` (logo dosyalarını ve sitedeki favicon/logo dosyalarını yeniler), sonra `build.py`.
+
 HTML dosyalarını doğrudan da düzenleyebilirsiniz, ama bir sonraki üretimde bu değişiklikler silinir.
 
 ## Görseller
@@ -52,6 +61,5 @@ Test yayını: https://pozitif-elektrik.github.io/ — `main` dalına gönderile
 
 ## Bilinen eksikler
 
-- **Logo:** Sadece 150×70 JPG var, vektör logo bekleniyor.
 - **Fotoğraflar:** Proje fotoğraflarında eski filigran var.
 - **Tailwind:** Canlıya almadan önce CDN yerine Tailwind CLI ile statik CSS'e geçmek performansı artırır.
