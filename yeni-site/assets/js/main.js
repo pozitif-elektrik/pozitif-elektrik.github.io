@@ -52,87 +52,31 @@
     });
   }
 
-  // ---------------- Projeler galerisi: filtre + daha fazla göster ----------------
+  // ---------------- Projeler galerisi: kategori filtresi ----------------
+  // Fotoğraflar kategori gruplarında durur; filtre seçili olmayan grupları gizler.
+  // Büyütme penceresi (PhotoSwipe) gizli gruplardaki fotoğrafları atlar: assets/js/galeri.js
   const galeri = $('[data-galeri]');
-  let filtre = 'hepsi';
   if (galeri) {
-    const ogeler = $$('[data-kategori]', galeri);
-    const sekmeler = $$('[data-filtre]');
-    const dahaBtn = $('[data-galeri-daha]');
-    const ADIM = 12;
-    let limit = ADIM;
-
-    const ciz = () => {
-      const eslesen = ogeler.filter((o) => filtre === 'hepsi' || o.dataset.kategori === filtre);
-      ogeler.forEach((o) => { o.hidden = true; o.dataset.disari = 'evet'; });
-      eslesen.forEach((o, i) => { o.hidden = i >= limit; delete o.dataset.disari; });
-      if (dahaBtn) dahaBtn.hidden = eslesen.length <= limit;
-      // Seçili filtrenin görünümü aria-pressed'den gelir (aria-pressed:... sınıfları)
-      sekmeler.forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.filtre === filtre)));
-    };
-    const sec = (yeni, adresiGuncelle = true) => {
-      filtre = sekmeler.some((s) => s.dataset.filtre === yeni) ? yeni : 'hepsi';
-      limit = ADIM;
-      ciz();
-      if (adresiGuncelle) {
+    const gruplar = $$('[data-grup]', galeri);
+    const filtreler = $$('[data-filtre]');
+    const kaydir = $('[data-filtre-kaydir]');
+    const sec = (yeni, kullanici = true) => {
+      const filtre = filtreler.some((f) => f.dataset.filtre === yeni) ? yeni : 'hepsi';
+      gruplar.forEach((g) => { g.hidden = filtre !== 'hepsi' && g.dataset.grup !== filtre; });
+      filtreler.forEach((f) => f.setAttribute('aria-pressed', String(f.dataset.filtre === filtre)));
+      // Mobilde yatay kayan filtre çubuğunda seçili düğme görünür kalsın
+      const aktif = filtreler.find((f) => f.dataset.filtre === filtre);
+      if (kaydir && aktif) kaydir.scrollLeft = Math.max(0, aktif.offsetLeft - kaydir.clientWidth / 2 + aktif.offsetWidth / 2);
+      if (kullanici) {
         const url = new URL(location.href);
         if (filtre === 'hepsi') url.searchParams.delete('kategori'); else url.searchParams.set('kategori', filtre);
         history.replaceState(null, '', url);
+        // Sayfa galerinin altına inmişse galerinin başına dön
+        if (galeri.getBoundingClientRect().top < 0) galeri.scrollIntoView({ block: 'start' });
       }
     };
-    sekmeler.forEach((s) => s.addEventListener('click', () => sec(s.dataset.filtre)));
-    if (dahaBtn) dahaBtn.addEventListener('click', () => { limit += ADIM; ciz(); });
+    filtreler.forEach((f) => f.addEventListener('click', () => sec(f.dataset.filtre)));
     sec(new URLSearchParams(location.search).get('kategori') || 'hepsi', false);
-  }
-
-  // ---------------- Büyütme penceresi (lightbox) ----------------
-  const pencere = $('#galeri-pencere');
-  if (pencere) {
-    const pImg = $('[data-pencere-img]', pencere);
-    const pBaslik = $('[data-pencere-baslik]', pencere);
-    const pSayac = $('[data-pencere-sayac]', pencere);
-    let liste = [];
-    let sira = 0;
-
-    const goster = (i) => {
-      sira = (i + liste.length) % liste.length;
-      const o = liste[sira];
-      pImg.src = o.dataset.buyuk;
-      pImg.alt = $('img', o).alt;
-      pBaslik.textContent = o.dataset.baslik || '';
-      pSayac.textContent = `${sira + 1} / ${liste.length}`;
-      const sonraki = liste[(sira + 1) % liste.length];
-      if (sonraki) { const on = new Image(); on.src = sonraki.dataset.buyuk; }
-    };
-
-    $$('[data-lightbox]').forEach((grup) => grup.addEventListener('click', (e) => {
-      const o = e.target.closest('[data-buyuk]');
-      if (!o) return;
-      // Aynı gruptaki, filtre dışında kalmayan tüm fotoğraflar arasında gezin
-      liste = $$('[data-buyuk]', grup).filter((x) => !x.dataset.disari);
-      goster(liste.indexOf(o));
-      pencere.showModal();
-    }));
-
-    $('[data-pencere-onceki]', pencere).addEventListener('click', () => goster(sira - 1));
-    $('[data-pencere-sonraki]', pencere).addEventListener('click', () => goster(sira + 1));
-    $('[data-pencere-kapat]', pencere).addEventListener('click', () => pencere.close());
-    // Pencerenin dışına (karartılmış arka plana) tıklayınca kapat
-    pencere.addEventListener('click', (e) => { if (e.target === pencere) pencere.close(); });
-    pencere.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') goster(sira - 1);
-      if (e.key === 'ArrowRight') goster(sira + 1);
-    });
-    pencere.addEventListener('close', () => { pImg.removeAttribute('src'); });
-
-    let dokunX = null;
-    pImg.addEventListener('touchstart', (e) => { dokunX = e.touches[0].clientX; }, { passive: true });
-    pImg.addEventListener('touchend', (e) => {
-      if (dokunX === null) return;
-      const fark = e.changedTouches[0].clientX - dokunX;
-      if (Math.abs(fark) > 40) goster(sira + (fark < 0 ? 1 : -1));
-      dokunX = null;
-    });
   }
 
   // ---------------- IBAN kopyala ----------------

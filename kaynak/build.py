@@ -11,6 +11,7 @@ Galeri ve ürün listesi kaynak/veri.json dosyasından gelir.
 import html
 import json
 import os
+import struct
 from collections import Counter
 
 KOK = os.path.dirname(os.path.abspath(__file__))
@@ -91,6 +92,7 @@ IKON = {
     "menu": '<path d="M4 6h16M4 12h16M4 18h16"/>',
     "kapat": '<path d="M18 6 6 18M6 6l12 12"/>',
     "sag": '<path d="m9 6 6 6-6 6"/>',
+    "buyut": '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
 }
 
 # ---------------------------------------------------------------- LOGO (öneri C)
@@ -380,24 +382,8 @@ def alt_bilgi(pencere=False, bildirim=False):
     site = "\n      ".join(f'<a class="{bag}" href="{h}">{e(a)}</a>' for h, a in MENU[1:5])
     kurumsal = "\n      ".join(f'<a class="{bag}" href="{h}">{e(a)}</a>' for h, a in MENU[5:])
     baslik = "mb-1 text-sm font-semibold uppercase tracking-[0.15em] text-koyu-metin/50"
-    yuvarlak = ("grid size-10 cursor-pointer place-items-center rounded-full bg-black/60 text-white transition-colors "
-                "hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white")
-    # Fotoğraf penceresi: yerel <dialog>. Esc ve arka plana tıklama kapatır (main.js).
-    p = f"""
-<dialog id="galeri-pencere" class="m-auto w-11/12 max-w-6xl bg-transparent p-0 text-koyu-metin backdrop:bg-black/85 backdrop:backdrop-blur-sm" aria-label="Proje fotoğrafı">
-  <div class="relative overflow-hidden rounded-xl bg-koyu shadow-2xl">
-    <figure class="flex items-center justify-center bg-black">
-      <img src="" alt="" class="max-h-[min(82vh,calc(100vh-7rem))] w-auto max-w-full object-contain" data-pencere-img>
-    </figure>
-    <div class="flex items-center justify-between gap-3 px-4 py-3">
-      <p class="text-sm font-medium" data-pencere-baslik></p>
-      <p class="text-sm text-koyu-metin/60" data-pencere-sayac></p>
-    </div>
-    <button type="button" class="{yuvarlak} absolute right-3 top-3" data-pencere-kapat aria-label="Kapat">{ikon(IKON['kapat'], 'size-5')}</button>
-    <button type="button" class="{yuvarlak} absolute left-3 top-1/2 -translate-y-1/2" data-pencere-onceki aria-label="Önceki fotoğraf">{ikon(IKON['sag'], 'size-6 rotate-180')}</button>
-    <button type="button" class="{yuvarlak} absolute right-3 top-1/2 -translate-y-1/2" data-pencere-sonraki aria-label="Sonraki fotoğraf">{ikon(IKON['sag'], 'size-6')}</button>
-  </div>
-</dialog>""" if pencere else ""
+    # Fotoğraf büyütme: PhotoSwipe 5 (MIT), assets/js/galeri.js içinde CDN'den modül olarak yüklenir
+    p = '\n<script type="module" src="assets/js/galeri.js"></script>' if pencere else ""
     b = f"""
 <div class="fixed bottom-4 right-4 z-[60] flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-3 text-sm font-medium text-white shadow-lg" role="status" data-bildirim hidden>
   {ikon(IKON['tik'], 'size-4')}<span data-bildirim-metin>IBAN kopyalandı</span>
@@ -435,8 +421,8 @@ def alt_bilgi(pencere=False, bildirim=False):
     </div>
   </div>
 </footer>
-{p}{b}
-<script src="assets/js/main.js" defer></script>
+{b}
+<script src="assets/js/main.js" defer></script>{p}
 </body>
 </html>
 """
@@ -475,15 +461,62 @@ def bolum_basligi(ust, baslik, aciklama="", ortali=False):
     </div>"""
 
 
-def galeri_ogesi(kod, etiket=True, filtreli=False, ek_sinif=""):
+def jpeg_boyut(yol, _onbellek={}):
+    """JPEG'in piksel boyutu (genişlik, yükseklik); Pillow gerektirmez."""
+    if yol not in _onbellek:
+        with open(os.path.join(CIKTI, yol), "rb") as f:
+            v = f.read()
+        i = 2
+        while i < len(v):
+            if v[i] != 0xFF or v[i + 1] == 0xFF:
+                i += 1
+                continue
+            m = v[i + 1]
+            if m in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                h, w = struct.unpack(">HH", v[i + 5:i + 9])
+                _onbellek[yol] = (w, h)
+                break
+            if m == 0x01 or 0xD0 <= m <= 0xD8:
+                i += 2
+                continue
+            i += 2 + struct.unpack(">H", v[i + 2:i + 4])[0]
+        else:
+            raise ValueError(f"JPEG boyutu okunamadı: {yol}")
+    return _onbellek[yol]
+
+
+ODAK = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi"
+
+
+def galeri_ogesi(kod, etiket=True):
+    """Kare küçük resimli fotoğraf (ana sayfa, hizmetler). Tıklayınca büyütme penceresi açılır;
+    JavaScript yoksa bağlantı büyük fotoğrafı doğrudan açar."""
     g = GALERI[kod]
     slug, ad = ESKI2YENI[g["kategori"]]
-    kat = f' data-kategori="{slug}"' if filtreli else ""
+    w, h = jpeg_boyut(g["img"])
     yazi = (f'<span class="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 to-transparent p-3 pt-10 text-left text-sm font-semibold text-white opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">{e(ad)}</span>'
             if etiket else "")
-    return (f'<button type="button" class="group relative aspect-square overflow-hidden rounded-xl bg-zemin-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kirmizi {ek_sinif}"{kat} data-buyuk="{g["img"]}" data-baslik="{e(ad)}">'
+    return (f'<a href="{g["img"]}" data-pswp-width="{w}" data-pswp-height="{h}" data-cropped="true" data-baslik="{e(ad)}" '
+            f'class="group relative block aspect-square overflow-hidden rounded-xl bg-zemin-2 {ODAK}">'
             f'<img src="{g["kucuk"]}" alt="{e(ad)} - Pozitif Marin Elektrik" loading="lazy" decoding="async" width="480" height="480" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">'
-            f'{yazi}</button>')
+            f'{yazi}</a>')
+
+
+def yasli_oge(g):
+    """Projeler galerisi: fotoğraf kendi oranıyla (kırpılmadan). Satırdaki fotoğraflar
+    aynı yükseklikte olacak şekilde genişler: flex-grow ve flex-basis en-boy oranıyla
+    orantılı (--o), satır yüksekliği kapsayıcıdaki --rh. Kütüphane gerekmez."""
+    kod = g["img"].split("/")[-1][:-4]
+    _, ad = ESKI2YENI[g["kategori"]]
+    w, h = jpeg_boyut(g["img"])
+    kucuk = f"assets/img/galeri/onizleme/{kod}.jpg"
+    kw, kh = jpeg_boyut(kucuk)
+    return (f'<a href="{g["img"]}" data-pswp-width="{w}" data-pswp-height="{h}" data-baslik="{e(ad)}" style="--o:{w / h:.4f}" '
+            f'class="group relative block max-w-full overflow-hidden rounded-lg bg-zemin-2 [flex:var(--o)_1_calc(var(--o)*var(--rh))] aspect-(--o) {ODAK}">'
+            f'<img src="{kucuk}" alt="{e(ad)} - Pozitif Marin Elektrik" loading="lazy" decoding="async" width="{kw}" height="{kh}" '
+            f'class="size-full object-cover transition duration-500 group-hover:scale-[1.03]">'
+            f'<span class="pointer-events-none absolute right-2 top-2 grid size-8 place-items-center rounded-full bg-black/55 text-white opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">'
+            f'{ikon(IKON["buyut"], "size-4")}</span></a>')
 
 
 def urun_karti(ad):
@@ -812,38 +845,56 @@ def sayfa_hizmetler():
             + ust_menu("hizmetler.html") + govde + alt_bilgi(pencere=True))
 
 
-FILTRE = "rounded-lg px-4 py-2 text-sm font-medium whitespace-nowrap text-metin/70 transition-colors cursor-pointer hover:text-metin focus-visible:outline-2 focus-visible:outline-kirmizi aria-pressed:bg-ters aria-pressed:text-ters-metin aria-pressed:shadow-sm"
+FILTRE = ("inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border border-cizgi bg-yuzey px-4 py-2 "
+          "text-sm font-medium text-metin/75 transition-colors hover:border-metin/30 hover:text-metin " + ODAK + " "
+          "aria-pressed:border-ters aria-pressed:bg-ters aria-pressed:text-ters-metin")
+
+# Galeri gruplarının kısa açıklaması ve ilgili hizmet bölümü (hizmetler.html#...)
+GRUP_ACIKLAMA = {"teslim-edilen-projeler": ("Elektrik ve elektronik sistemlerini kurup teslim ettiğimiz teknelerden.", None)}
+GRUP_ACIKLAMA.update({h["kategori"]: (h["kisa"], h["id"]) for h in HIZMETLER if h["kategori"]})
 
 
 def sayfa_projeler():
-    cnt = Counter(g["kategori"] for g in VERI["galeri"])
-    sekmeler = [f'<button type="button" class="{FILTRE}" aria-pressed="true" data-filtre="hepsi">Tümü <span class="ml-1.5 text-xs opacity-60">{len(VERI["galeri"])}</span></button>']
-    sekmeler += [f'<button type="button" class="{FILTRE}" aria-pressed="false" data-filtre="{s}">{e(ad)} <span class="ml-1.5 text-xs opacity-60">{cnt[eski]}</span></button>' for s, ad, eski in KATEGORI]
     by = {eski: [g for g in VERI["galeri"] if g["kategori"] == eski] for _, _, eski in KATEGORI}
-    sira = []
-    while any(by.values()):
-        for _, _, eski in KATEGORI:
-            if by[eski]:
-                sira.append(by[eski].pop(0))
-    ogeler = "\n      ".join(galeri_ogesi(g["img"].split("/")[-1][:-4], filtreli=True) for g in sira)
+    toplam = len(VERI["galeri"])
+    filtreler = [f'<button type="button" class="{FILTRE}" aria-pressed="true" data-filtre="hepsi">Tümü <span class="text-xs opacity-60">{toplam}</span></button>']
+    filtreler += [f'<button type="button" class="{FILTRE}" aria-pressed="false" data-filtre="{slug}">{e(ad)} <span class="text-xs opacity-60">{len(by[eski])}</span></button>'
+                  for slug, ad, eski in KATEGORI]
+    gruplar = []
+    for slug, ad, eski in KATEGORI:
+        aciklama, hizmet = GRUP_ACIKLAMA[slug]
+        bag = (f'<a href="hizmetler.html#{hizmet}" class="inline-flex items-center gap-1 font-semibold text-kirmizi-metin underline-offset-4 hover:underline">'
+               f'Hizmet ayrıntıları {ikon(IKON["ok"], "size-4")}</a>') if hizmet else ""
+        ogeler = "\n        ".join(yasli_oge(g) for g in by[eski])
+        gruplar.append(f"""
+    <section data-grup="{slug}" aria-labelledby="grup-{slug}" class="pt-10 first:pt-0">
+      <div class="mb-5 flex flex-col gap-3 border-b border-cizgi pb-4 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+        <div class="max-w-2xl">
+          <h2 id="grup-{slug}" class="flex items-baseline gap-3 text-2xl font-extrabold tracking-tight">{e(ad)} <span class="text-sm font-medium text-metin/60">{len(by[eski])} fotoğraf</span></h2>
+          <p class="mt-1 text-metin/70">{e(aciklama)}</p>
+        </div>
+        {bag}
+      </div>
+      <div class="flex flex-wrap items-start gap-2 [--rh:8.5rem] after:grow-[999] after:content-[''] sm:[--rh:11rem] lg:[--rh:14rem]">
+        {ogeler}
+      </div>
+    </section>""")
     govde = sayfa_basligi("Projeler", "Projelerimiz", "Sahadan kareler",
                           "Teslim ettiğimiz teknelerden, imal ettiğimiz kumanda ve dağıtım panolarından, altyapı işlerimizden ve proje çizimlerimizden 81 fotoğraf.",
                           "assets/img/sayfa/projeler.jpg", "Seyir halinde bir yelkenli yat", 711, 533) + f"""
 
-<section class="bg-zemin py-16 lg:py-20">
-  <div class="mx-auto max-w-7xl px-4 lg:px-6">
-    <div class="overflow-x-auto pb-2">
-      <div role="group" aria-label="Proje kategorileri" class="flex w-max gap-1 rounded-xl border border-cizgi bg-zemin-2 p-1">
-        {chr(10).join('        ' + s for s in sekmeler)}
-      </div>
+<div class="sticky top-16 z-40 border-b border-cizgi bg-zemin/95 backdrop-blur">
+  <div class="mx-auto max-w-7xl overflow-x-auto px-4 [scrollbar-width:none] lg:px-6 [&::-webkit-scrollbar]:hidden" data-filtre-kaydir>
+    <div role="group" aria-label="Proje kategorileri" class="flex w-max gap-2 py-3">
+      {chr(10).join('      ' + f for f in filtreler).strip()}
     </div>
-    <p class="mt-4 text-sm text-metin/60">Büyütmek için fotoğrafa dokunun. Pencerede ok tuşlarıyla ya da kaydırarak gezinebilirsiniz.</p>
-    <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4" data-lightbox data-galeri>
-      {ogeler}
-    </div>
-    <div class="mt-10 text-center">
-      <button type="button" class="{dugme('ikincil', 'md', 'min-w-64')}" data-galeri-daha>Daha fazla göster</button>
-    </div>
+  </div>
+</div>
+
+<section aria-label="Proje fotoğrafları" class="bg-zemin py-10 lg:py-14">
+  <div class="mx-auto max-w-7xl scroll-mt-36 px-4 lg:px-6" data-lightbox data-galeri>
+    <p class="mb-8 flex items-center gap-2 text-sm text-metin/60">{ikon(IKON["buyut"], "size-4 shrink-0")} Fotoğrafa dokunarak büyütün; büyük görünümde kaydırarak gezinebilir, iki parmakla yakınlaştırabilirsiniz.</p>
+    {"".join(gruplar)}
   </div>
 </section>
 {cta_bandi()}"""

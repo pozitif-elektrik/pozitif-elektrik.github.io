@@ -1,6 +1,6 @@
 # Pozitif Marin Elektrik: yeni site
 
-Çok sayfalı statik site. Yalnızca Tailwind CSS 4 (`@tailwindcss/browser@4.3.5`, CDN) ve vanilla JS; bileşen kütüphanesi yok. Sitede form yok.
+Çok sayfalı statik site. Tailwind CSS 4 (`@tailwindcss/browser@4.3.5`, CDN) ve vanilla JS; bileşen kütüphanesi yok. Fotoğraf büyütme penceresi için PhotoSwipe 5.4.4 (MIT, CDN). Sitede form yok.
 
 ## Logo ve tema
 
@@ -16,7 +16,7 @@
 | `index.html` | Hero, rakamlar, kısa tanıtım, 6 hizmet, öne çıkan projeler, çalışma adımları, tekne yazıları, iş ortakları ve referanslar özeti |
 | `hakkimizda.html` | Hikaye, ilkeler, çizimden teslimata altı adım, çalışılan tekne tipleri |
 | `hizmetler.html` | 6 hizmetin her biri için açıklama, kapsam ve fotoğraflar. Üstte yapışkan alt menü |
-| `projeler.html` | 81 fotoğraflık filtreli galeri. Kategoriye doğrudan link verilebilir: `projeler.html?kategori=tekne-yazilari` |
+| `projeler.html` | 81 fotoğraf, 6 kategori grubunda; fotoğraflar kırpılmadan, satırları iki kenara yaslanmış düzende. Üstte yapışkan kategori filtresi. Kategoriye doğrudan link verilebilir: `projeler.html?kategori=tekne-yazilari` |
 | `urunler.html` | 17 ürün, 4 grupta |
 | `is-ortaklarimiz.html` | Ürün markaları ve tersaneler |
 | `referanslar.html` | 32 firma, 3 sektör grubunda |
@@ -40,6 +40,12 @@ Logo değişirse önce `python3 kaynak/logo.py` (logo dosyalarını ve sitedeki 
 
 HTML dosyalarını doğrudan da düzenleyebilirsiniz, ama bir sonraki üretimde bu değişiklikler silinir.
 
+## Fotoğraf galerisi
+
+- **Büyütme penceresi:** `assets/js/galeri.js` (ES modülü) PhotoSwipe'ı jsDelivr'den yükler; ana sayfa, hizmetler ve projeler sayfalarında `[data-lightbox]` içindeki `<a data-pswp-width data-pswp-height>` bağlantıları açar. Kaydırarak gezinme, iki parmakla yakınlaştırma, aşağı kaydırıp kapatma, klavye; telefonda "geri" tuşu pencereyi kapatır. Kütüphane yüklenemezse bağlantı büyük fotoğrafı doğrudan açar.
+- **Projeler düzeni:** kütüphanesiz, düz CSS. Her fotoğrafın `flex-grow` ve `flex-basis` değeri en-boy oranıyla (`--o`) orantılı olduğu için bir satırdaki fotoğraflar aynı yüksekliğe gelir (`--rh`: satır yüksekliği).
+- **Fotoğraf boyutları:** `build.py` JPEG başlığından okur (Pillow gerekmez).
+
 ## Görseller
 
 Her görsel, kullanıldığı kutunun oranında kırpıldı.
@@ -51,7 +57,9 @@ Her görsel, kullanıldığı kutunun oranında kırpıldı.
   - geniş ekran: 2.74:1
 - `assets/img/sayfa/`: Sayfa başlıkları ve tekne tipi kartları, 4:3.
 - `assets/img/urunler/`: Kenar boşlukları kırpılmış, beyaz kare zemine ortalanmış ürün görselleri, 640×640.
-- `assets/img/galeri/`: Proje fotoğrafları (en fazla 1100px), `galeri/kucuk/` altında 480px kare küçük boyları.
+- `assets/img/galeri/`: Proje fotoğrafları (en fazla 1100px).
+  - `galeri/kucuk/`: 480px kare küçükler (ana sayfa, hizmetler).
+  - `galeri/onizleme/`: oranı korunmuş önizlemeler, yükseklik en fazla 540px (projeler). Yeniden üretmek için `python3 kaynak/onizleme.py`.
 
 ## Yayın
 
